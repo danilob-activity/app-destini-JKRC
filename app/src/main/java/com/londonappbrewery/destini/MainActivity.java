@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         mAnswerTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mStorySelected = mStorySelected.getAnswerTop().getChildStory();
+                mStoryTextView.setText(mStorySelected.getStoryID());
 
             }
         });
@@ -77,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
         mAnswerBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mStorySelected = mStorySelected.getAnswerBottom().getChildStory();
+                mStoryTextView.setText(mStorySelected.getStoryID());
             }
         });
 
