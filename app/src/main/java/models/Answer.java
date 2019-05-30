@@ -1,4 +1,4 @@
-package com.londonappbrewery.destini;
+package models;
 
 /**
  * Created by danilo on 09/02/18.

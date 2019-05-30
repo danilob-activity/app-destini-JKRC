@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import models.Answer;
+import models.Story;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -26,8 +29,27 @@ public class MainActivity extends AppCompatActivity {
     Answer mT3_ans1 = new Answer(R.string.T3_Ans1);
     Answer mT3_ans2 = new Answer(R.string.T3_Ans2);
 
+    public void setar(Story storySelected){
+        mStoryTextView.setText(storySelected.getStoryID());
+        if(storySelected.getAnswerTop() != null) {
+            mAnswerTop.setText(storySelected.getAnswerTop().getAnswerID());
+            mAnswerBottom.setText(storySelected.getAnswerBottom().getAnswerID());
+        }
+        else{
+            mAnswerTop.setVisibility(View.INVISIBLE);
+            mAnswerBottom.setVisibility(View.INVISIBLE);
+        }
+    }
     //indice corrente da historia
     private Story mStorySelected;
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState!=null){
+            mStorySelected = (Story) savedInstanceState.getSerializable("StoryKey");
+            setar(mStorySelected);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         mAnswerBottom = findViewById(R.id.buttonBottom);
         mAnswerTop = findViewById(R.id.buttonTop);
 
-        if(savedInstanceState!=null){
-        //    mStorySelected = savedInstanceState.getInt("StoryKey");
-        }
+
+
+
 
         //TODO:faça o mapeamento da história
         mT1.setAnswerTop(mT1_ans1);
@@ -59,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mT2_ans2.setChildStory(mT4e);
 
         mStorySelected = mT1;
-        mStoryTextView.setText(mStorySelected.getStoryID());
-        mAnswerTop.setText(mStorySelected.getAnswerTop().getAnswerID());
-        mAnswerBottom.setText(mStorySelected.getAnswerBottom().getAnswerID());
+        setar(mStorySelected);
 
 
 
@@ -71,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mStorySelected = mStorySelected.getAnswerTop().getChildStory();
-                mStoryTextView.setText(mStorySelected.getStoryID());
+                setar(mStorySelected);
 
             }
         });
@@ -80,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mStorySelected = mStorySelected.getAnswerBottom().getChildStory();
-                mStoryTextView.setText(mStorySelected.getStoryID());
+                setar(mStorySelected);
             }
         });
 
@@ -89,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-    //    outState.putAll("StoryKey",mStorySelected);
+        outState.putSerializable("StoryKey", mStorySelected);
     }
 
 }

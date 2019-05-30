@@ -1,10 +1,14 @@
-package com.londonappbrewery.destini;
+package models;
+
+import java.io.Serializable;
+
+import models.Answer;
 
 /**
  * Created by danilo on 09/02/18.
  */
 
-public class Story {
+public class Story implements Serializable {
     private int mStoryID;
     Answer mAnswerTop;
     Answer mAnswerBottom;
