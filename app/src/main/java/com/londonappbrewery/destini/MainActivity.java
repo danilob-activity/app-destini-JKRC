@@ -1,10 +1,12 @@
 package com.londonappbrewery.destini;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import models.Answer;
 import models.Story;
@@ -38,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         else{
             mAnswerTop.setVisibility(View.INVISIBLE);
             mAnswerBottom.setVisibility(View.INVISIBLE);
+            final Handler handler = new Handler();
+            Toast.makeText(getApplicationContext(), "Finalizando aplicação em 14 segundos...", Toast.LENGTH_LONG).show();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 14s = 14000ms
+                    finish();
+                }
+            }, 14000);
         }
     }
     //indice corrente da historia
